@@ -2,11 +2,10 @@ package pl.mmiskiewicz;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /*@ComponentScan(basePackages = "pl.mmiskiewicz")
@@ -30,6 +29,38 @@ public class Main {
     public List<Customer> getCustomers() {
         return customerRepository.findAll();
     }
+
+    @PostMapping()
+    public void addCustomer(@RequestBody NewCustomerRequest request) {
+        Customer customer = new Customer();
+        customer.setName(request.name);
+        customer.setEmail(request.email);
+        customer.setAge(request.age);
+
+        customerRepository.save(customer);
+    }
+
+    @DeleteMapping("{customer_id}")
+    public void deleteCustomer(@PathVariable("customer_id") Integer customerId) {
+
+        customerRepository.deleteById(customerId);
+    }
+
+    @PutMapping("{customer_id}")
+    public void updateCustomer(@PathVariable("customer_id") Integer customerId,
+                               @RequestBody NewCustomerRequest request) {
+        Customer foundCustomer = customerRepository.findById(customerId).orElseThrow();
+        foundCustomer.setName(request.name);
+        foundCustomer.setEmail(request.email);
+        foundCustomer.setAge(request.age);
+        customerRepository.save(foundCustomer);
+    }
+
+    record NewCustomerRequest(
+            String name,
+            String email,
+            Integer age
+    ){}
 
     /*@GetMapping("/greet")
     public GreetResponse greet() {
