@@ -1,0 +1,13 @@
+# a PORT which Tomcat uses
+server:
+  port: 8080
+
+# DEFAULT CONFIGURATION
+spring:
+  main:
+    web-application-type: servlet
+
+# WEB SERVER DISABLED
+#spring:
+#  main:
+#    web-application-type: none
