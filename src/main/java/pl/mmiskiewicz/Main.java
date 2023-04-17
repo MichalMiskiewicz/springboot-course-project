@@ -18,7 +18,7 @@ public class Main {
         SpringApplication.run(Main.class, args);
     }
 
-    @GetMapping("/greet")
+    /*@GetMapping("/greet")
     public GreetResponse greet() {
         GreetResponse response = new GreetResponse(
                 "Hello",
@@ -34,5 +34,5 @@ public class Main {
             String greet,
             List<String> favPogrammingLanguages,
             Person person
-    ) {}
+    ) {}*/
 }
